@@ -1,0 +1,19 @@
+{
+  "name": "employee-tracker-sql",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AStandish/employee-tracker-sql.git"
+  },
+  "author": "Amber Standish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AStandish/employee-tracker-sql/issues"
+  },
+  "homepage": "https://github.com/AStandish/employee-tracker-sql#readme"
+}
