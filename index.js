@@ -6,7 +6,7 @@ function runMenu() {
   inquirer
     .prompt({
       type: "list",
-      message: "Which option would you like?",
+      message: "Choose an option:",
       name: "option",
       choices: [
         "View all departments",
@@ -63,7 +63,7 @@ function runMenu() {
           break;
         case "Exit":
           connection.end();
-          console.log("Goodbye");
+          console.log("K, bye");
           break;
       }
     });
@@ -110,7 +110,7 @@ function addDepartment() {
       {
         type: "input",
         name: "department",
-        message: "Please add a department title:",
+        message: "Add a department title:",
       },
     ])
     .then((answer) => {
@@ -120,7 +120,7 @@ function addDepartment() {
         { name: answer.department },
         (err, res) => {
           if (err) throw err;
-          console.log("Added new department");
+          console.log("Added dept");
           runMenu();
         }
       );
@@ -128,7 +128,7 @@ function addDepartment() {
 }
 
 function addRoles() {
-  console.log("aa");
+  console.log("Added");
 
   // query all the depts
   connection
@@ -148,20 +148,20 @@ function addRoles() {
         {
           type: "input",
           name: "roles",
-          message: "Please add a role:",
+          message: "Add role:",
         },
 
         {
           type: "input",
           name: "salary",
-          message: "Please add a salary:",
+          message: "Add salary:",
         },
 
         {
           type: "list",
           name: "depts",
           choices: departments,
-          message: "Please choose your department:",
+          message: "CHoose department:",
         },
       ]);
     })
@@ -229,7 +229,7 @@ async function addEmployee() {
       {
         name: "role",
         type: "list",
-        message: "Please enter their role? ",
+        message: "Enter role",
         choices: await selectRole(),
       },
       {
@@ -279,13 +279,13 @@ function updateEmployeeRole() {
           type: "list",
           name: "employeeListId",
           choices: employeeList,
-          message: "Please choose the employee you want to update:",
+          message: "Choose employee to update:",
         },
         {
           type: "list",
           name: "roleId",
           choices: await selectRole(),
-          message: "Please choose role:",
+          message: "Choose role:",
         },
       ]);
     })
@@ -327,7 +327,7 @@ function deleteDepartment() {
           type: "list",
           name: "deptId",
           choices: departments,
-          message: "Please choose the department to delete:",
+          message: "Choose department to delete:",
         },
       ]);
     })
@@ -365,7 +365,7 @@ function deleteEmployee() {
           type: "list",
           name: "employeeId",
           choices: employees,
-          message: "Please choose the employee to delete:",
+          message: "Choose employee to delete:",
         },
       ]);
     })
@@ -376,7 +376,7 @@ function deleteEmployee() {
         .query("DELETE FROM Employee WHERE id = ?", answer.employeeId);
     })
     .then((res) => {
-      console.log("Employee Deleted Successfully");
+      console.log("Employee Deleted");
       runMenu();
     })
 
@@ -403,7 +403,7 @@ function deleteRole() {
           type: "list",
           name: "roleId",
           choices: employeeRoles,
-          message: "Please choose employee to delete:",
+          message: "Choose an employee to delete:",
         },
       ]);
     })
@@ -414,7 +414,7 @@ function deleteRole() {
         .query("DELETE FROM Role WHERE id = ?", answer.roleId);
     })
     .then((res) => {
-      console.log("Role Deleted Successfully");
+      console.log("Role was deleted");
       runMenu();
     })
 
