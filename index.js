@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
-const db = require("./db");
 const connection = require("./db/connection");
 
+//prompts user to choose an option
 function runMenu() {
   inquirer
     .prompt({
@@ -68,7 +68,7 @@ function runMenu() {
       }
     });
 }
-
+//view all depts
 function viewAllDepartments() {
   connection.query("SELECT * FROM Department", (err, res) => {
     if (err) {
@@ -78,7 +78,7 @@ function viewAllDepartments() {
     runMenu();
   });
 }
-
+//view all roles
 function viewAllRoles() {
   connection.query(
     "select ro.title as Role_title, ro.salary as Salary , dept.name as DepartmentName from Role ro left join department as dept on dept.id = ro.department_id",
@@ -91,7 +91,7 @@ function viewAllRoles() {
     }
   );
 }
-
+//view all employees
 function viewAllEmployees() {
   const sql =
     'Select emp.id as EmployeeID, concat(emp.first_name,"  ",emp.last_name ) as EmployeeName , ro.title as Job_tittle, ro.salary as Salary,dept.name as Department_Name,concat(emp2.first_name,"  ",emp2.last_name) as ManagerName from employees_db.employee as emp left join employees_db.employee as emp2 on emp2.id=emp.manager_id left join employees_db.Role as ro on emp.role_id=ro.id left join employees_db.department as dept on dept.id = ro.department_id';
@@ -103,7 +103,7 @@ function viewAllEmployees() {
     runMenu();
   });
 }
-
+//add dept
 function addDepartment() {
   inquirer
     .prompt([
@@ -126,16 +126,14 @@ function addDepartment() {
       );
     });
 }
-
+//add role
 function addRoles() {
   console.log("Added");
 
-  // query all the depts
   connection
     .promise()
     .query("SELECT * FROM Department")
     .then((res) => {
-      // make the choice dept arr
       return res[0].map((dept) => {
         return {
           name: dept.name,
@@ -182,7 +180,7 @@ function addRoles() {
       throw err;
     });
 }
-
+//select role
 function selectRole() {
   return connection
     .promise()
@@ -196,7 +194,7 @@ function selectRole() {
       });
     });
 }
-
+//select manager
 function selectManager() {
   return connection
     .promise()
@@ -210,7 +208,7 @@ function selectManager() {
       });
     });
 }
-
+//add employee
 async function addEmployee() {
   const managers = await selectManager();
 
@@ -260,7 +258,7 @@ async function addEmployee() {
       );
     });
 }
-
+//update role
 function updateEmployeeRole() {
   connection
     .promise()
@@ -307,7 +305,7 @@ function updateEmployeeRole() {
       throw err;
     });
 }
-
+//delete dept
 function deleteDepartment() {
   connection
     .promise()
@@ -346,7 +344,7 @@ function deleteDepartment() {
       throw err;
     });
 }
-
+//delete employee
 function deleteEmployee() {
   connection
     .promise()
@@ -384,7 +382,7 @@ function deleteEmployee() {
       throw err;
     });
 }
-
+//delete role
 function deleteRole() {
   connection
     .promise()
@@ -421,6 +419,11 @@ function deleteRole() {
     .catch((err) => {
       throw err;
     });
+
+  // exit the app
+  function exitApp() {
+    connection.end();
+  }
 }
 
 runMenu();
