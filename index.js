@@ -159,7 +159,7 @@ function addRoles() {
           type: "list",
           name: "depts",
           choices: departments,
-          message: "CHoose department:",
+          message: "Choose department:",
         },
       ]);
     })
@@ -401,7 +401,7 @@ function deleteRole() {
           type: "list",
           name: "roleId",
           choices: employeeRoles,
-          message: "Choose an employee to delete:",
+          message: "Choose role to delete:",
         },
       ]);
     })
